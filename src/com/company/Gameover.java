@@ -11,7 +11,7 @@ public class Gameover extends SnakePanel{
     graphics.setColor(Color.black);
     graphics.setFont(new Font("Purisa",Font.BOLD,30));
     FontMetrics metric = getFontMetrics(graphics.getFont());
-    graphics.drawString("Wynik: "+pointsEaten,(width - metric.stringWidth("Wynik: "+pointsEaten))/2, graphics.getFont().getSize());
+    graphics.drawString("Wynik: "+pointsEaten,(width - metric.stringWidth("Wynik: "+ pointsEaten))/2, graphics.getFont().getSize());
 
     graphics.setColor(Color.red);
     graphics.setFont(new Font("Purisa",Font.BOLD, 90));
@@ -20,8 +20,11 @@ public class Gameover extends SnakePanel{
 
     graphics.setColor(Color.black);
     graphics.setFont(new Font("Purisa",Font.BOLD, 40));
-    graphics2D.draw(buttonBack);
     graphics2D.drawString("Back", buttonBack.x + 100, buttonBack.y + 60);
+
+    graphics2D.draw(buttonBack);
+
+
 
 }
 }

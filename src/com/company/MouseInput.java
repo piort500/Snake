@@ -1,6 +1,5 @@
 package com.company;
 
-import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -39,7 +38,6 @@ public class MouseInput implements MouseListener {
             //Play
             if (mx >= width / 4 + 100 && mx <= width / 4 + 400) {
                 if (my >= 250 && my <= 350) {
-                    SnakePanel.state = SnakePanel.STATE.GAME;
                     snakePanel.gameStart();
                 }
             }
@@ -47,8 +45,8 @@ public class MouseInput implements MouseListener {
             //Highscores
             if (mx >= width / 4 + 100 && mx <= width / 4 + 400) {
                 if (my >= 450 && my <= 550) {
-
-
+                    SnakePanel.state = SnakePanel.STATE.HIGHSCORES;
+                    snakePanel.draw(snakePanel.getGraphics());
                 }
             }
 
@@ -68,7 +66,20 @@ public class MouseInput implements MouseListener {
             if(mx >= width/4 + 100 && mx <= width/4 + 400){
                 if(my >= 800 && my <= 900){
                     SnakePanel.state = SnakePanel.STATE.MENU;
-                    snakePanel.paint(snakePanel.getGraphics());
+                }
+            }
+
+        }
+
+        //public Rectangle buttonBack = new Rectangle(width / 4 + 100, 800 , 300, 100);
+
+        //back in highscore
+
+        if(SnakePanel.state == SnakePanel.STATE.HIGHSCORES){
+            if(mx >= width/4 + 100 && mx <= width/4 + 400){
+                if(my >= 800 && my <= 900){
+                    SnakePanel.state = SnakePanel.STATE.MENU;
+                    snakePanel.draw(snakePanel.getGraphics());
                 }
             }
 

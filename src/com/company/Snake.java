@@ -2,9 +2,9 @@ package com.company;
 
 public class Snake {
 
-        public static void main(String[] args) {
+    public static void main(String[] args) {
 
-            new SnakeFrame();
+        new SnakeFrame();
 
-        }
     }
+}

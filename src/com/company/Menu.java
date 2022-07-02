@@ -2,6 +2,7 @@ package com.company;
 
 import java.awt.*;
 
+import static com.company.SnakePanel.height;
 import static com.company.SnakePanel.width;
 
 public class Menu {
@@ -15,6 +16,8 @@ public class Menu {
 
         Graphics2D graphics2D = (Graphics2D) graphics;
 
+        graphics.setColor(Color.white);
+        graphics.fillRect(0,0, width, height);
         Font font1 = new Font("arial", Font.BOLD, 60);
         graphics.setFont(font1);
         graphics.setColor(new Color (0,100,0));

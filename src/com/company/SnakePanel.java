@@ -28,7 +28,8 @@ public class SnakePanel extends JPanel implements ActionListener {
     public String playerName;
 
 
-    public static enum STATE{
+
+    public enum STATE{
         MENU,
         GAME,
         HIGHSCORES,
@@ -76,6 +77,7 @@ public class SnakePanel extends JPanel implements ActionListener {
 
 
     public void gameStart() {
+        state = STATE.GAME;
         newPoint();
         newBadPoint();
         timer = new Timer(delay, this);
@@ -85,6 +87,83 @@ public class SnakePanel extends JPanel implements ActionListener {
     public void paint(Graphics graphics) {
         super.paint(graphics);
         draw(graphics);
+    }
+
+    public void newPoint(){
+        pointX = rand.nextInt(width/object)*object;
+        pointY = rand.nextInt(height/object)*object;
+    }
+
+    public void newBadPoint(){
+        badPointX = rand.nextInt(width/object)*object;
+        badPointY = rand.nextInt(height/object) *object;
+    }
+    public void moveSnake(){
+        for(int i = snakeParts; i>0; i--){
+            x[i] = x[i-1];
+            y[i] = y[i-1];
+        }
+
+        switch (snakeDirection) {
+            case 'U' -> y[0] = y[0] - object;
+            case 'D' -> y[0] = y[0] + object;
+            case 'L' -> x[0] = x[0] - object;
+            case 'R' -> x[0] = x[0] + object;
+        }
+    }
+
+    public void pointCheck(){
+        if((x[0] == pointX) && (y[0] == pointY)){
+            snakeParts++;
+            pointsEaten++;
+            delay +=20;
+            newPoint();
+        }
+    }
+
+    public void badPointCheck(){
+        if((x[0] == badPointX) && (y[0] == badPointY)){
+            if(snakeParts==1){
+            }else{
+                snakeParts--;
+            }
+            if(pointsEaten==0){
+            }else{
+                pointsEaten--;
+            }
+            if(delay == 150){
+            }else
+                delay -= 25;
+            newBadPoint();
+        }
+    }
+
+
+    public void collisionCheck(){
+        for(int i = snakeParts; i>0; i--){
+            if((x[0] == x[i]) && (y[0] == y[i])){
+                state = STATE.GAMEOVER;
+            }
+        }
+        if(x[0] < 0) {
+            state = STATE.GAMEOVER;
+        }
+
+        if(x[0] > width){
+            state = STATE.GAMEOVER;
+        }
+
+        if(y[0] < 0){
+            state = STATE.GAMEOVER;
+        }
+
+        if(y[0] > height){
+            state = STATE.GAMEOVER;
+        }
+
+        if(state == STATE.GAMEOVER){
+            timer.stop();
+        }
     }
 
     public void draw(Graphics graphics){
@@ -124,92 +203,6 @@ public class SnakePanel extends JPanel implements ActionListener {
         }
         else if(state == STATE.GAMEOVER){
             startGameover(graphics);
-        }
-    }
-    public void newPoint(){
-        pointX = rand.nextInt((int)(width/object))*object;
-        pointY = rand.nextInt((int)height/object)*object;
-    }
-
-    public void newBadPoint(){
-        badPointX = rand.nextInt((int)(width/object))*object;
-        badPointY = rand.nextInt((int)(height/object)) *object;
-    }
-    public void moveSnake(){
-        for(int i = snakeParts; i>0; i--){
-            x[i] = x[i-1];
-            y[i] = y[i-1];
-        }
-
-        switch(snakeDirection){
-            case 'U':
-                y[0] = y[0] - object;
-                break;
-            case 'D':
-                y[0] = y[0] + object;
-                break;
-            case 'L':
-                x[0] = x[0] - object;
-                break;
-            case 'R':
-                x[0] = x[0] + object;
-                break;
-        }
-    }
-    public void pointCheck(){
-        if((x[0] == pointX) && (y[0] == pointY)){
-            snakeParts++;
-            pointsEaten++;
-            delay +=20;
-            newPoint();
-        }
-    }
-
-    public void badPointCheck(){
-        if((x[0] == badPointX) && (y[0] == badPointY)){
-            if(snakeParts==1){
-                snakeParts=1;
-            }else{
-                snakeParts--;
-            }
-            if(pointsEaten==0){
-                pointsEaten=0;
-            }else{
-                pointsEaten--;
-            }
-            if(delay == 150){
-                delay = 150;
-            }else
-                delay -= 25;
-            newBadPoint();
-        }
-    }
-
-
-    public void collisionCheck(){
-        for(int i = snakeParts; i>0; i--){
-            if((x[0] == x[i]) && (y[0] == y[i])){
-                state = STATE.GAMEOVER;
-            }
-        }
-        if(x[0] < 0) {
-            state = STATE.GAMEOVER;
-        }
-
-        if(x[0] > width){
-            state = STATE.GAMEOVER;
-        }
-
-        if(y[0] < 0){
-            state = STATE.GAMEOVER;
-        }
-
-        if(y[0] > height){
-            state = STATE.GAMEOVER;
-        }
-
-        if(state == STATE.GAMEOVER){
-            timer.stop();
         }
     }
 
